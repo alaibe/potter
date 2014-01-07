@@ -55,7 +55,7 @@ func (basket Basket) countBooks() int {
 func (basket Basket) countUniqueBooks() int {
   count := 0
   for _, book := range basket {
-    if book.count == 0 {
+    if book.count == 1 {
       count += 1
     }
   }
@@ -67,7 +67,7 @@ func (basket Basket) incrementCounterWithOne() {
   for _, book := range basket {
     if book.count == 1 {
       book.count += 1
-      break
+      return
     }
   }
 }
@@ -77,7 +77,7 @@ func (basket Basket) Price() float64 {
 
   for basket.countBooks() > 0 {
     len := basket.countBooks()
-    if basket.countUniqueBooks() == 2 {
+    if len == 5 && basket.countUniqueBooks() == 2 {
       price += prices[len-2]
       basket.incrementCounterWithOne()
     } else {
