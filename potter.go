@@ -11,12 +11,10 @@ func build(books []int) Basket {
 
   for _, value := range books {
     if book, present := basket.get(value); present == true {
-      book.count += 1
+      book.count++
     } else {
-      book := new(Book)
-      book.name = value
-      book.count = 1
-      basket = append(basket, book)
+      book := Book{name: value, count: 1}
+      basket = append(basket, &book)
     }
   }
 
