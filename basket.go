@@ -4,8 +4,8 @@ type Basket []*Book
 
 var prices = [5]float64 {8.0, 15.2, 21.6, 25.6, 30}
 
-func (basket Basket) get(name int) (*Book, bool) {
-  for _, book := range basket {
+func (basket *Basket) get(name int) (*Book, bool) {
+  for _, book := range *basket {
     if book.name == name {
       return book, true
     }
@@ -13,9 +13,9 @@ func (basket Basket) get(name int) (*Book, bool) {
   return nil, false
 }
 
-func (basket Basket) countActiveBooks() int {
+func (basket *Basket) countActiveBooks() int {
   count := 0
-  for _, book := range basket {
+  for _, book := range *basket {
     if book.active() == true {
       count++
     }
@@ -23,9 +23,9 @@ func (basket Basket) countActiveBooks() int {
   return count
 }
 
-func (basket Basket) countUniqueBooks() int {
+func (basket *Basket) countUniqueBooks() int {
   count := 0
-  for _, book := range basket {
+  for _, book := range *basket {
     if book.unique() == true {
       count++
     }
@@ -33,8 +33,8 @@ func (basket Basket) countUniqueBooks() int {
   return count
 }
 
-func (basket Basket) incFirstUniqueBook() {
-  for _, book := range basket {
+func (basket *Basket) incFirstUniqueBook() {
+  for _, book := range *basket {
     if book.unique() == true {
       book.count++
       return
@@ -42,13 +42,13 @@ func (basket Basket) incFirstUniqueBook() {
   }
 }
 
-func (basket Basket) decBooks() {
-  for _, book := range basket {
+func (basket *Basket) decBooks() {
+  for _, book := range *basket {
     book.count--
   }
 }
 
-func (basket Basket) price() float64 {
+func (basket *Basket) price() float64 {
   price := 0.0
   for basket.countActiveBooks() > 0 {
     len := basket.countActiveBooks()
